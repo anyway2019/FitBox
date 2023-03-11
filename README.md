@@ -1,6 +1,7 @@
 # FitBox
 
-This repo aim to visualize data from fit file.
+<img src="./src/assets/home.png"  style="height:100%;width:60% "/>
+<p>This repo aim to visualize data from fit file.</p>
 
 # How to use
 
