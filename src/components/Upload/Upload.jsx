@@ -1,10 +1,14 @@
-import { Form } from "react-router-dom";
+import { useRef } from "react";
+import { Form, useSubmit } from "react-router-dom";
 
 const Upload = ({onChange,...rest}) => {
+    const submit = useSubmit();
+    const ref = useRef();
     const handleFile = (file)=>{
       const fileReader = new FileReader();
       fileReader.onloadend = (event) => {
         onChange({ filename: file.name, content: event.target.result });
+        submit(ref.current);
       };
       fileReader.readAsArrayBuffer(file);
     };
@@ -26,7 +30,7 @@ const Upload = ({onChange,...rest}) => {
     
     return (
         <div>
-            <Form id="upload">
+            <Form id="upload" ref={ref}>
               <input
                 id="file"
                 className="upload"

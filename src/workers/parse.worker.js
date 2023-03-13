@@ -7,9 +7,5 @@ onmessage = function (e) {
         const { messages, errors } = decoder.read();
         if (messages)
             postMessage(messages);
-        if (errors.length)
-            postMessage(errors);
-    } else {
-        postMessage("Not FIT");
     }
 }

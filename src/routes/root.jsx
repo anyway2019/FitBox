@@ -1,5 +1,5 @@
  import SearchBar from "../components/Search/Search";
- import {Outlet,NavLink,useLoaderData,redirect,useNavigation,useSubmit} from "react-router-dom";
+ import {Form,Outlet,NavLink,useLoaderData,redirect,useNavigation,useSubmit} from "react-router-dom";
  import {createActivity,getActivities } from "../activity";
  import { useEffect, useState } from "react";
  import Upload from "../components/Upload/Upload";
@@ -24,16 +24,14 @@
 
     const fileHandle = (filename,content)=>{
       if (window.Worker) {
-          console.log(14,filename,content);
           const myWorker = new Worker({type: 'module'});
           myWorker.addEventListener('message', async (event) => {
-            console.log('Message received from worker1',);
             const activity = await createActivity({filename:filename,...event.data});
             submit(null,{action:`/activities/${activity.id}`});
           });
           myWorker.postMessage([filename,content]);
       } else {
-        console.log('Your browser doesn\'t support web workers.');
+        alert('Your browser doesn\'t support web workers.');
       }
     };
 
@@ -42,7 +40,7 @@
         <div id="sidebar">
             <h1>FitBox v0.0.1</h1>
             <Upload id="upload" onChange={fileHandle}/>
-            <div style={{display:"none"}}>
+            <div>
               <SearchBar data={query?query:""}/>
             </div>
             <nav>
@@ -81,7 +79,7 @@
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
     const activity = await createActivity(data);
-    return redirect(`/activities/${activity.id}`);
+    return redirect(`/`);
   };
 
   export async function loader({request}) {

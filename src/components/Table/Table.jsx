@@ -75,11 +75,11 @@ function TablePaginationActions(props) {
 export default function PaginationTable({data}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const headers = Object.keys(data[0]);
-  console.log(headers);
+  const headers = data?Object.keys(data[0]):[];
+  const length = data?data.length:0;
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - length) : 0;
 
   const handleChangePage = (
     event,
@@ -106,7 +106,7 @@ export default function PaginationTable({data}) {
                 </TableCell>
                 );
              })}
-          {(rowsPerPage > 0
+          {data && ((rowsPerPage > 0
             ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : data
           ).map((row) => (
@@ -114,12 +114,12 @@ export default function PaginationTable({data}) {
              {headers.map((header) => {
                 return (
                   <TableCell component="th" scope="row">
-                    {header.includes('startTime') || header.includes("timestamp")? row[header].toLocaleString():row[header]}
+                    {header.includes('startTime') || header.includes("timestamp")? row[header].toLocaleString():row.hasOwnProperty(header)?row[header].toLocaleString():null}
                   </TableCell>
                 );
              })}
             </TableRow>
-          ))}
+          )))}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
               <TableCell colSpan={6} />
@@ -132,7 +132,7 @@ export default function PaginationTable({data}) {
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={6}
               align="right"
-              count={data.length}
+              count={length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{

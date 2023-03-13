@@ -18,7 +18,7 @@ import Map from "../components/Map/index";
 import Row from "../components/Flex/index";
 
 export async function loader({params}){
-    const activity = getActivity(params.activityId);
+    const activity = await getActivity(params.activityId);
     if(activity === null){
         throw new Response("",{status:404,statusText:'Not Found'});
     }

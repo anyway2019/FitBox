@@ -13,7 +13,6 @@ const Tab = React.memo(({children,value,onChange})=>{
                         key:child.props.id,
                         onClick: () => {
                             onChange(child.props.id);
-                            console.log(child.props.id);
                         },
                     });
                 });
