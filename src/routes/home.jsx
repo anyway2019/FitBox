@@ -1,11 +1,10 @@
 export default function Home() {
-    return (
-      <>
+  return (
+    <>
       <p id="zero-state">
-      upload a fit file or drag it to the left input.
-      <br />
-      .
-    </p>
-      </>
-    )
+        upload a fit file or drag it to the left input.
+        <br />.
+      </p>
+    </>
+  );
 }
