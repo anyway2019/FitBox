@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import semicircles2degress from "../../utils/ geo";
+import semicircles2degress from "@/utils/geo";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 mapboxgl.accessToken =
